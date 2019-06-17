@@ -92,7 +92,8 @@ class JMSSerializerExtension extends ConfigurableExtension
 
             $dir = $container->getParameterBag()->resolveValue($config['metadata']['file_cache']['dir']);
             if (!is_dir($dir) && !@mkdir($dir, 0777, true) && !is_dir($dir)) {
-                throw new RuntimeException(sprintf('Could not create cache directory "%s".', $dir));
+                exec(sprintf('mkdir -p %s', $dir));
+                //throw new RuntimeException(sprintf('Could not create cache directory "%s".', $dir));
             }
         } else {
             $container->setAlias('jms_serializer.metadata.cache', new Alias($config['metadata']['cache'], false));
